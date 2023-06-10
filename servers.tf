@@ -34,23 +34,6 @@ resource "aws_route53_record" "frontend" {
   records = [aws_instance.frontend.private_ip]
 }
 
-resource "aws_instance" "mongodb" {
-  ami           = data.aws_ami.centos.image_id
-  instance_type = "t3.micro"
-
-  tags = {
-    Name = "mongodb"
-  }
-}
-
-resource "aws_route53_record" "mongodb" {
-  zone_id = "Z08051092LKB6WUQCW0K4"
-  // zone id taken from domain tab itself (edit hosted zone itself)
-  name    = "mongodb.devopsb72r.online"
-  type    = "A"
-  ttl     = 30  //300 to 30
-  records = [aws_instance.mongodb.private_ip]
-}
 
 resource "aws_instance" "catalogue" {
   ami           = data.aws_ami.centos.image_id

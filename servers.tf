@@ -7,7 +7,7 @@ resource "aws_instance" "frontend" {
   }
 }
 
-output "Frontend" {
+output "frontend" {
 value = aws_instance_frontend.public_ip
 
 }

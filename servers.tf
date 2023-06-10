@@ -131,6 +131,15 @@ resource "aws_instance" "mysql" {
   }
 }
 
+resource "aws_route53_record" "mysql" {
+  zone_id = "Z08051092LKB6WUQCW0K4"
+  // zone id taken from domain tab itself (edit hosted zone itself)
+  name    = "mysql.devopsb72r.online"
+  type    = "A"
+  ttl     = 30  //300 to 30
+  records = [aws_instance.mysql.private_ip]
+}
+
 resource "aws_instance" "shipping" {
   ami           = data.aws_ami.centos.image_id
   instance_type = "t3.micro"

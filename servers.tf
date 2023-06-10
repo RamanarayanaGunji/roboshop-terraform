@@ -22,6 +22,9 @@ resource "aws_instance" "frontend" {
  //value = aws_instance.frontend.public_ip
 //}
 
+
+
+
 resource "aws_route53_record" "frontend" {
   zone_id = "Z08051092LKB6WUQCW0K4"
   // zone id taken from domain tab itself (edit hosted zone itself)

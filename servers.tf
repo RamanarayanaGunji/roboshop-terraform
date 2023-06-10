@@ -9,6 +9,7 @@ resource "aws_instance" "frontend" {
 
 output "Frontend" {
 value = aws_instance_frontend.public_ip
+
 }
 
 resource "aws_instance" "mongodb" {

@@ -22,9 +22,6 @@ resource "aws_instance" "mongodb" {
  //value = aws_instance.frontend.public_ip
 //}
 
-
-
-
 resource "aws_route53_record" "mongodb" {
   zone_id = "Z08051092LKB6WUQCW0K4"
   // zone id taken from domain tab itself (edit hosted zone itself)
@@ -33,7 +30,6 @@ resource "aws_route53_record" "mongodb" {
   ttl     = 30  //300 to 30
   records = [aws_instance.mongodb.private_ip]
 }
-
 
 resource "aws_instance" "catalogue" {
   ami           = data.aws_ami.centos.image_id

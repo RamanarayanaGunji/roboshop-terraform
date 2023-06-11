@@ -9,12 +9,12 @@ data "aws_ami" "centos" {
   //value=data.aws_ami.centos.image_id
  // }
 
-resource "aws_instance" "rama" {
+resource "aws_instance" "mongodb" {
   ami           = data.aws_ami.centos.image_id
   instance_type = "t3.micro"
 
   tags = {
-    Name = "rama"
+    Name = "mongodb"
   }
 }
 
@@ -25,13 +25,13 @@ resource "aws_instance" "rama" {
 
 
 
-resource "aws_route53_record" "rama" {
+resource "aws_route53_record" "mongodb" {
   zone_id = "Z08051092LKB6WUQCW0K4"
   // zone id taken from domain tab itself (edit hosted zone itself)
-  name    = "rama.devopsb72r.online"
+  name    = "mongodb.devopsb72r.online"
   type    = "A"
   ttl     = 30  //300 to 30
-  records = [aws_instance.rama.private_ip]
+  records = [aws_instance.mongodb.private_ip]
 }
 
 

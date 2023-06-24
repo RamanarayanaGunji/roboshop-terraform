@@ -16,8 +16,8 @@ data "aws_ami" "centos" {
     default ="t3.micro"
  }
 
-Variable “components” {
-Default =[“frontend”, “mongodb”, “catalogue”]
+variable “components” {
+default =[“frontend”, “mongodb”, “catalogue”]
 }
 
  resource "aws_instance" "instance" {

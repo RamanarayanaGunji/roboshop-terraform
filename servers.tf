@@ -8,7 +8,7 @@ data "aws_ami" "centos" {
   //output "ami" {
   //value=data.aws_ami.centos.image_id
  // }
- data "aws_security_group"  "selected" {
+ data "aws_security_group"  "allow-all" {
       name ="allow-all"
  }
 
@@ -17,14 +17,14 @@ data "aws_ami" "centos" {
  }
 
 variable "components"{
-default =["frontend", "mongodb", "catalogue"]
+    default =["frontend", "mongodb", "catalogue"]
 }
 
  resource "aws_instance" "instance" {
-   count =length(var.components)
-   ami           = data.aws_ami.centos.image_id
+   count =  length(var.components)
+   ami   = data.aws_ami.centos.image_id
    instance_type = var.instance_type
-   vpc_security_group_ids = [data.aws_security_group.allow.all.id]
+   vpc_security_group_ids = [ data.aws_security_group.allow.all.id ]
 
    tags = {
      Name = var.components[count.index]

@@ -16,196 +16,201 @@ data "aws_ami" "centos" {
     default ="t3.micro"
  }
 
- resource "aws_instance" "frontend" {
+Variable “components” {
+Default =[“frontend”, “mongodb”, “catalogue”]
+}
+
+ resource "aws_instance" "instance" {
+   count =length(var.components)
    ami           = data.aws_ami.centos.image_id
    instance_type = var.instance_type
    vpc_security_group_ids = [data.aws_security_group.allow.all.id]
 
    tags = {
-     Name = "frontend"
+     Name = var.components[count.index]
    }
  }
 
-resource "aws_route53_record" "frontend" {
-  zone_id = "Z08051092LKB6WUQCW0K4"
-  // zone id taken from domain tab itself (edit hosted zone itself)
-  name    = "frontend.devopsb72r.online"
-  type    = "A"
-  ttl     = 30  //300 to 30
-  records = [aws_instance.frontend.private_ip]
-}
+//"aws_route53_record" "frontend" {
+// = "Z08051092LKB6WUQCW0K4"
+// id taken from domain tab itself (edit hosted zone itself)
+// = "frontend.devopsb72r.online"
+// = "A"
+// = 30  //300 to 30
+// = [aws_instance.frontend.private_ip]
+//
 
-//output "frontend" {
- //value = aws_instance.frontend.public_ip
-//}
+//"frontend" {
+//= aws_instance.frontend.public_ip
+//
 
-resource "aws_instance" "mongodb" {
-  ami           = data.aws_ami.centos.image_id
-  instance_type = var.instance_type
-  vpc_security_group_ids = [data.aws_security_group.allow.all.id]
+//"aws_instance" "mongodb" {
+//       = data.aws_ami.centos.image_id
+//e_type = var.instance_type
+//urity_group_ids = [data.aws_security_group.allow.all.id]
 
-  tags = {
-    Name = "mongodb"
-  }
-}
+//{
+//= "mongodb"
+//
+//
 
-resource "aws_route53_record" "mongodb" {
-  zone_id = "Z08051092LKB6WUQCW0K4"
-  // zone id taken from domain tab itself (edit hosted zone itself)
-  name    = "mongodb.devopsb72r.online"
-  type    = "A"
-  ttl     = 30  //300 to 30
-  records = [aws_instance.mongodb.private_ip]
-}
+//"aws_route53_record" "mongodb" {
+// = "Z08051092LKB6WUQCW0K4"
+// id taken from domain tab itself (edit hosted zone itself)
+// = "mongodb.devopsb72r.online"
+// = "A"
+// = 30  //300 to 30
+// = [aws_instance.mongodb.private_ip]
+//
 
-resource "aws_instance" "catalogue" {
-  ami           = data.aws_ami.centos.image_id
-  instance_type = "t3.micro"
-  vpc_security_group_ids = [data.aws_security_group.allow.all.id]
+//"aws_instance" "catalogue" {
+//       = data.aws_ami.centos.image_id
+//e_type = "t3.micro"
+//urity_group_ids = [data.aws_security_group.allow.all.id]
 
-  tags = {
-    Name = "catalogue"
-  }
-}
+//{
+//= "catalogue"
+//
+//
 
-resource "aws_route53_record" "catalogue" {
-  zone_id = "Z08051092LKB6WUQCW0K4"
-  // zone id taken from domain tab itself (edit hosted zone itself)
-  name    = "catalogue.devopsb72r.online"
-  type    = "A"
-  ttl     = 30  //300 to 30
-  records = [aws_instance.catalogue.private_ip]
-}
+//"aws_route53_record" "catalogue" {
+// = "Z08051092LKB6WUQCW0K4"
+// id taken from domain tab itself (edit hosted zone itself)
+// = "catalogue.devopsb72r.online"
+// = "A"
+// = 30  //300 to 30
+// = [aws_instance.catalogue.private_ip]
+//
 
-resource "aws_instance" "redis" {
-  ami           = data.aws_ami.centos.image_id
-  instance_type = var.instance_type
-  vpc_security_group_ids = [data.aws_security_group.allow.all.id]
+//"aws_instance" "redis" {
+//       = data.aws_ami.centos.image_id
+//e_type = var.instance_type
+//urity_group_ids = [data.aws_security_group.allow.all.id]
 
-  tags = {
-    Name = "redis"
-  }
-}
+//{
+//= "redis"
+//
+//
 
-resource "aws_route53_record" "redis" {
-  zone_id = "Z08051092LKB6WUQCW0K4"
-  // zone id taken from domain tab itself (edit hosted zone itself)
-  name    = "redis.devopsb72r.online"
-  type    = "A"
-  ttl     = 30  //300 to 30
-  records = [aws_instance.redis.private_ip]
-}
+//"aws_route53_record" "redis" {
+// = "Z08051092LKB6WUQCW0K4"
+// id taken from domain tab itself (edit hosted zone itself)
+// = "redis.devopsb72r.online"
+// = "A"
+// = 30  //300 to 30
+// = [aws_instance.redis.private_ip]
+//
 
-resource "aws_instance" "user" {
-  ami           = data.aws_ami.centos.image_id
-  instance_type = var.instance_type
-  vpc_security_group_ids = [data.aws_security_group.allow.all.id]
+//"aws_instance" "user" {
+//       = data.aws_ami.centos.image_id
+//e_type = var.instance_type
+//urity_group_ids = [data.aws_security_group.allow.all.id]
 
-  tags = {
-    Name = "user"
-  }
-}
+//{
+//= "user"
+//
+//
 
-resource "aws_route53_record" "user" {
-  zone_id = "Z08051092LKB6WUQCW0K4"
-  // zone id taken from domain tab itself (edit hosted zone itself)
-  name    = "user.devopsb72r.online"
-  type    = "A"
-  ttl     = 30  //300 to 30
-  records = [aws_instance.user.private_ip]
-}
+//"aws_route53_record" "user" {
+// = "Z08051092LKB6WUQCW0K4"
+// id taken from domain tab itself (edit hosted zone itself)
+// = "user.devopsb72r.online"
+// = "A"
+// = 30  //300 to 30
+// = [aws_instance.user.private_ip]
+//
 
-resource "aws_instance" "cart" {
-  ami           = data.aws_ami.centos.image_id
-  instance_type = var.instance_type
-  vpc_security_group_ids = [data.aws_security_group.allow.all.id]
+//"aws_instance" "cart" {
+//       = data.aws_ami.centos.image_id
+//e_type = var.instance_type
+//urity_group_ids = [data.aws_security_group.allow.all.id]
 
-  tags = {
-    Name = "cart"
-  }
-}
+//{
+//= "cart"
+//
+//
 
-resource "aws_route53_record" "cart" {
-  zone_id = "Z08051092LKB6WUQCW0K4"
-  // zone id taken from domain tab itself (edit hosted zone itself)
-  name    = "cart.devopsb72r.online"
-  type    = "A"
-  ttl     = 30  //300 to 30
-  records = [aws_instance.cart.private_ip]
-}
+//"aws_route53_record" "cart" {
+// = "Z08051092LKB6WUQCW0K4"
+// id taken from domain tab itself (edit hosted zone itself)
+// = "cart.devopsb72r.online"
+// = "A"
+// = 30  //300 to 30
+// = [aws_instance.cart.private_ip]
+//
 
-resource "aws_instance" "mysql" {
-  ami           = data.aws_ami.centos.image_id
-  instance_type = var.instance_type
-  vpc_security_group_ids = [data.aws_security_group.allow.all.id]
+//"aws_instance" "mysql" {
+//       = data.aws_ami.centos.image_id
+//e_type = var.instance_type
+//urity_group_ids = [data.aws_security_group.allow.all.id]
 
-  tags = {
-    Name = "mysql"
-  }
-}
+//{
+//= "mysql"
+//
+//
 
-resource "aws_route53_record" "mysql" {
-  zone_id = "Z08051092LKB6WUQCW0K4"
-  // zone id taken from domain tab itself (edit hosted zone itself)
-  name    = "mysql.devopsb72r.online"
-  type    = "A"
-  ttl     = 30  //300 to 30
-  records = [aws_instance.mysql.private_ip]
-}
+//"aws_route53_record" "mysql" {
+// = "Z08051092LKB6WUQCW0K4"
+// id taken from domain tab itself (edit hosted zone itself)
+// = "mysql.devopsb72r.online"
+// = "A"
+// = 30  //300 to 30
+// = [aws_instance.mysql.private_ip]
+//
 
-resource "aws_instance" "shipping" {
-  ami           = data.aws_ami.centos.image_id
-  instance_type = var.instance_type
-  vpc_security_group_ids = [data.aws_security_group.allow.all.id]
+//"aws_instance" "shipping" {
+//       = data.aws_ami.centos.image_id
+//e_type = var.instance_type
+//urity_group_ids = [data.aws_security_group.allow.all.id]
 
-  tags = {
-    Name = "shipping"
-  }
-}
+//{
+//= "shipping"
+//
+//
 
-resource "aws_route53_record" "shipping" {
-  zone_id = "Z08051092LKB6WUQCW0K4"
-  // zone id taken from domain tab itself (edit hosted zone itself)
-  name    = "shipping.devopsb72r.online"
-  type    = "A"
-  ttl     = 30  //300 to 30
-  records = [aws_instance.shipping.private_ip]
-}
+//"aws_route53_record" "shipping" {
+// = "Z08051092LKB6WUQCW0K4"
+// id taken from domain tab itself (edit hosted zone itself)
+// = "shipping.devopsb72r.online"
+// = "A"
+// = 30  //300 to 30
+// = [aws_instance.shipping.private_ip]
+//
 
-resource "aws_instance" "rabbitmq" {
-  ami           = data.aws_ami.centos.image_id
-  instance_type = var.instance_type
-  vpc_security_group_ids = [data.aws_security_group.allow.all.id]
+//"aws_instance" "rabbitmq" {
+//       = data.aws_ami.centos.image_id
+//e_type = var.instance_type
+//urity_group_ids = [data.aws_security_group.allow.all.id]
 
-  tags = {
-    Name = "rabbitmq"
-  }
-}
+//{
+//= "rabbitmq"
+//
+//
 
-resource "aws_route53_record" "rabbitmq" {
-  zone_id = "Z08051092LKB6WUQCW0K4"
-  // zone id taken from domain tab itself (edit hosted zone itself)
-  name    = "rabbitmq.devopsb72r.online"
-  type    = "A"
-  ttl     = 30  //300 to 30
-  records = [aws_instance.rabbitmq.private_ip]
-}
+//"aws_route53_record" "rabbitmq" {
+// = "Z08051092LKB6WUQCW0K4"
+// id taken from domain tab itself (edit hosted zone itself)
+// = "rabbitmq.devopsb72r.online"
+// = "A"
+// = 30  //300 to 30
+// = [aws_instance.rabbitmq.private_ip]
+//
 
-resource "aws_instance" "payment" {
-  ami           = data.aws_ami.centos.image_id
-  instance_type = var.instance_type
-  vpc_security_group_ids = [data.aws_security_group.allow.all.id]
+//"aws_instance" "payment" {
+//       = data.aws_ami.centos.image_id
+//e_type = var.instance_type
+//urity_group_ids = [data.aws_security_group.allow.all.id]
 
-  tags = {
-    Name = "payment"
-  }
-}
+//{
+//= "payment"
+//
+//
 
-resource "aws_route53_record" "payment" {
-  zone_id = "Z08051092LKB6WUQCW0K4"
-  // zone id taken from domain tab itself (edit hosted zone itself)
-  name    = "payment.devopsb72r.online"
-  type    = "A"
-  ttl     = 30  //300 to 30
-  records = [aws_instance.payment.private_ip]
-}
+//"aws_route53_record" "payment" {
+// = "Z08051092LKB6WUQCW0K4"
+// id taken from domain tab itself (edit hosted zone itself)
+// = "payment.devopsb72r.online"
+// = "A"
+// = 30  //300 to 30
+// = [aws_instance.payment.private_ip]
+//

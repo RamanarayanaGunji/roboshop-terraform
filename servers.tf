@@ -69,12 +69,20 @@ variable "components"{
    }
  }
 
-//"aws_route53_record" "frontend" {
-// = "Z08051092LKB6WUQCW0K4"
-// id taken from domain tab itself (edit hosted zone itself)
-// = "frontend.devopsb72r.online"
-// = "A"
-// = 30  //300 to 30
-// = [aws_instance.frontend.private_ip]
-//
+// Creation of DNS records
+
+resource "aws_route53_record" "records" {
+    for_each   =var.components
+    zone_id= "Z08051092LKB6WUQCW0K4"
+
+    //id taken from domain tab itself (edit hosted zone itself)
+
+    name= "${each.value["name"]}.devopsb72r.online"
+    type= "A"
+    ttl= 30  //300 to 30
+    records= [aws_instance.[each.value["name"]].private_ip]
+}
+
+
+
 

@@ -80,7 +80,8 @@ resource "aws_route53_record" "records" {
     name= "${each.value["name"]}.devopsb72r.online"
     type= "A"
     ttl= 30  //300 to 30
-    records= [aws_instance.[each.value["name"]].private_ip]
+    // here 2nd instance belongs to instance function name at 60th line one.
+    records= [aws_instance.instance[each.value["name"]].private_ip]
 }
 
 

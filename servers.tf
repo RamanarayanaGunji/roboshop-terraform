@@ -57,6 +57,8 @@ variable "components"{
         }
     }
 }
+//Creation of instances by calling for_each
+
  resource "aws_instance" "instance" {
    for_each      =var.components
    //count         =length(var.components)
@@ -76,7 +78,8 @@ resource "aws_route53_record" "records" {
     zone_id= "Z08051092LKB6WUQCW0K4"
 
     //id taken from domain tab itself (edit hosted zone itself)
-
+##above case we are printing just variable combination of some strings then following is the syntax.output
+## ${} is compulsory f we include the variable inside a string
     name= "${each.value["name"]}.devopsb72r.online"
     type= "A"
     ttl= 30  //300 to 30

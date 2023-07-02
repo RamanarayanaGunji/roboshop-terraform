@@ -4,8 +4,6 @@
   //output "ami" {
   //value=data.aws_ami.centos.image_id
  // }
-
-
 //variable "components"{}
 //Creation of instances by calling for_each
 

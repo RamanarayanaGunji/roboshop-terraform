@@ -5,9 +5,9 @@ data "aws_ami" "centos" {
   name_regex       = "Centos-8-DevOps-Practice"
   }
 
-  output "ami" {
-  value=data.aws_ami.centos.image_id
-  }
+  //output "ami" {
+  //value=data.aws_ami.centos.image_id
+ // }
  data "aws_security_group"  "allow-all" {
       name ="allow-all"
  }
@@ -78,8 +78,8 @@ resource "aws_route53_record" "records" {
     zone_id= "Z08051092LKB6WUQCW0K4"
 
     //id taken from domain tab itself (edit hosted zone itself)
-##above case we are printing just variable combination of some strings then following is the syntax.output
-## ${} is compulsory f we include the variable inside a string
+//##above case we are printing just variable combination of some strings then following is the syntax.output
+//## ${} is compulsory f we include the variable inside a string
     name= "${each.value["name"]}.devopsb72r.online"
     type= "A"
     ttl= 30  //300 to 30

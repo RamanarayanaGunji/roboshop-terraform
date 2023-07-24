@@ -1,29 +1,29 @@
 app_servers ={
-      frontend ={
-       name="frontend"
-       instance_type="t3.small"
-      }
-       catalogue ={
-         name="catalogue"
-          instance_type="t3.small"
-       }
-       user ={
+     frontend ={
+        name="frontend"
+        instance_type="t3.small"
+     }
+     catalogue ={
+        name="catalogue"
+        instance_type="t3.small"
+     }
+     user ={
         name="user"
-         instance_type="t3.micro"
-        }
-        cart ={
-          name="cart"
-          instance_type="t3.micro"
-        }
+        instance_type="t3.micro"
+     }
+     cart ={
+        name="cart"
+        instance_type="t3.micro"
+     }
 
-        shipping ={
-           name="shipping"
-           instance_type="t3.medium"
-        }
-        payment ={
-          name="payment"
-          instance_type="t3.small"
-        }
+     shipping ={
+        name="shipping"
+        instance_type="t3.medium"
+     }
+     payment ={
+        name="payment"
+        instance_type="t3.small"
+     }
 }
 
 env="dev"

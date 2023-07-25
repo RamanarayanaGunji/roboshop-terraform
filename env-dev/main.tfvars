@@ -19,10 +19,13 @@ app_servers ={
      shipping ={
         name="shipping"
         instance_type="t3.medium"
+        password= "RoboShop@1"
+
      }
      payment ={
         name="payment"
         instance_type="t3.small"
+        password= "RoboShop@1"
      }
 }
 
@@ -37,10 +40,12 @@ database_servers ={
      mysql ={
         name="mysql"
         instance_type="t3.small"
+        password= "RoboShop@1"
      }
      rabbitmq ={
         name="rabbitmq"
         instance_type="t3.small"
+        password ="RoboShop@1"
      }
      redis ={
         name="redis"
